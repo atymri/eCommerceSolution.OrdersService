@@ -1,0 +1,172 @@
+services:
+
+  orders-service:
+    container_name: orders-service
+    image: orders-service:1.0
+    build:
+      # with this one right here it will recreate the docker image each time it runs
+      context: .
+      dockerfile: eCommerce.API/Dockerfile
+    ports:
+      - "7300:8080"
+    environment:
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=eCommerceOrders
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=atymri
+      - RABBITMQ_PASS=former_age7
+      - RABBITMQ_PRODUCTS_EXCHANGE=products.exchange
+      - GATEWAY_HOST=gateway
+      - GATEWAY_PORT=8080
+    networks:
+      - orders-network
+      - ecommerce-microservice
+    depends_on:
+      - ecommerce-gateway
+      - mongo-service
+    hostname: orders
+
+  products-service:
+    container_name: products-service
+    image: products-service:1.0
+    ports:
+      - 7100:8080
+    environment:
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MYSQL_HOST=mysqldb
+      - MYSQL_PORT=3306
+      - MYSQL_PASS=former_age7
+      - MYSQL_USER=root
+      - MYSQL_DB=eCommerceProducts
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=atymri
+      - RABBITMQ_PRODUCTS_EXCHANGE=products.exchange
+      - RABBITMQ_PASS=former_age7
+    networks:
+      - products-network
+      - ecommerce-microservice
+    depends_on:
+      - ecommerce-gateway
+      - mysql-service
+    hostname: products
+
+  users-service:
+    container_name: users-service
+    image: users-service:1.0
+    ports:
+      - "7200:9090"
+    environment:
+      - ASPNETCORE_HTTP_PORTS=9090
+      - ASPNETCORE_ENVIRONMENT=Development
+      - POSTGRES_HOST=psqldb
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASS=former_age7
+      - POSTGRES_DB=ecommerceusers
+    networks:
+      - users-network
+      - ecommerce-microservice
+    depends_on:
+      - ecommerce-gateway
+      - psql-service
+    hostname: users
+
+  ecommerce-gateway:
+    container_name: ecommerce-gateway
+    image: ecommerce-gateway:1.0
+    build:
+      context: .
+      dockerfile: ./eCommerce.Gateway/Dockerfile
+    ports:
+      - "4412:8080"
+    networks:
+      - ecommerce-microservice
+    hostname: gateway
+
+  # external services:
+
+  mongo-service:
+    container_name: mongo-db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - "C:/microservice/eCommerce/mongo-init:/docker-entrypoint-initdb.d"
+    hostname: "mongodb"
+    networks:
+      - orders-network
+      - ecommerce-microservice
+    depends_on:
+      - psql-service
+
+  mysql-service:
+    container_name: mysql-db
+    image: mysql:latest
+    ports:
+      - "3301:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=former_age7
+    volumes:
+      - "C:/microservice/eCommerce/mysql-init:/docker-entrypoint-initdb.d"
+    hostname: "mysqldb"
+    networks:
+      - products-network
+      - ecommerce-microservice
+    depends_on:
+      - mongo-service
+
+  psql-service:
+    container_name: psql-db
+    image: postgres:latest
+    ports:
+      - "5431:5432"
+    volumes:
+      - "C:/microservice/eCommerce/psql-init:/docker-entrypoint-initdb.d"
+    environment:
+      - POSTGRES_PASSWORD=former_age7
+      - POSTGRES_DATABASE=ecommerceusers
+    hostname: "psqldb"
+    networks:
+      - users-network
+      - ecommerce-microservice
+
+  redis-service:
+    container_name: redis-db
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - "C:/microservice/ecommerce/redis-cache:/data"
+    networks:
+      - ecommerce-microservice
+    hostname: redis
+
+  rabbitmq-service:
+    container_name: rabbitmq-service
+    image: rabbitmq:4.2.4-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=atymri
+      - RABBITMQ_DEFAULT_PASS=former_age7
+    hostname: rabbitmq
+    networks:
+      - products-network
+      - ecommerce-microservice
+
+networks:
+  orders-network:
+    driver: "bridge"
+  products-network:
+    driver: "bridge"
+  users-network:
+    driver: "bridge"
+  ecommerce-microservice:
+    driver: "bridge"

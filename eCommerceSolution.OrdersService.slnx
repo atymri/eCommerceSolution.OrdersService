@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="eCommerce.API/eCommerce.API.csproj" />
+  <Project Path="eCommerce.BLL/eCommerce.BLL.csproj" />
+  <Project Path="eCommerce.DAL/eCommerce.DAL.csproj" />
+  <Project Path="eCommerce.Gateway/eCommerce.Gateway.csproj" Id="20785c32-cd3f-4e3d-807b-b2975c89f61f" />
+  <Project Path="eCommerce.Tests/eCommerce.Tests.csproj" Id="a7de2fd5-6c7f-4f3c-be59-a9df4fe7926a" />
+</Solution>

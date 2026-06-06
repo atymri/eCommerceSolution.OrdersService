@@ -1,0 +1,76 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGO_HOST": "localhost",
+        "MONGO_PORT": "27017",
+        "MONGO_DB": "eCommerceOrders",
+        "USERSERVICE_HOST": "localhost",
+        "USERSERVICE_PORT": "9090",
+        "PRODUCTSERVICE_HOST": "localhost",
+        "PRODUCTSERVICE_PORT": "5219"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5237"
+    },
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGO_HOST": "localhost",
+        "MONGO_PORT": "27017",
+        "MONGO_DB": "eCommerceOrders",
+        "USERSERVICE_HOST": "localhost",
+        "USERSERVICE_PORT": "9090",
+        "PRODUCTSERVICE_HOST": "localhost",
+        "PRODUCTSERVICE_PORT": "5219"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7133;http://localhost:5237"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGO_HOST": "localhost",
+        "MONGO_PORT": "27017",
+        "MONGO_DB": "eCommerceOrders",
+        "ORDERSERVICE_HOST": "localhost",
+        "ORDERSERVICE_PORT": "9090"
+      }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "environmentVariables": {
+        "MONGO_HOST": "localhost",
+        "MONGO_PORT": "27017",
+        "MONGO_DB": "eCommerceOrders",
+        "USERSERVICE_HOST": "localhost",
+        "USERSERVICE_PORT": "9090",
+        "PRODUCTSERVICE_HOST": "localhost",
+        "PRODUCTSERVICE_PORT": "5219"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:2644",
+      "sslPort": 44300
+    }
+  }
+}

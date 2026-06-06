@@ -1,0 +1,258 @@
+﻿{
+  "Routes": [
+    {
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamPathTemplate": "/orders",
+      "DownstreamPathTemplate": "/api/orders",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Options" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/orders/search/byorder/{id}",
+      "DownstreamPathTemplate": "/api/orders/search/byorder/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/orders/search/byproduct/{productId}",
+      "DownstreamPathTemplate": "/api/orders/search/byproduct/{productId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/orders/search/byuser/{userId}",
+      "DownstreamPathTemplate": "/api/orders/search/byuser/{userId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/orders/search/date/{date}",
+      "DownstreamPathTemplate": "/api/orders/search/date/{date}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/orders/{orderId}",
+      "DownstreamPathTemplate": "/{orderId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orders",
+          "Port": 8081
+        }
+      ],
+      "UpstreamHttpMethod": [ "Put", "Delete", "Options" ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/products",
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Options" ]
+    },
+    {
+      "UpstreamPathTemplate": "/products/search/id/{productID}",
+      "DownstreamPathTemplate": "/api/products/search/product-id/{productID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/products/validate",
+      "DownstreamPathTemplate": "/api/products/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "QoSOptions": {
+        "MinimumThroughput": 3,
+        "BreakDuration": 5000,
+        "TimeOut": 20000
+      },
+      "RetryOptions": {
+        "RetryCount": 3,
+        "RetryOnServerError": true
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/products/validate/{productId}",
+      "DownstreamPathTemplate": "/api/products/validate/{productId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 },
+      "QoSOptions": {
+        "MinimumThroughput": 3,
+        "BreakDuration": 5000
+      },
+      "RetryOptions": {
+        "RetryCount": 3,
+        "RetryOnServerError": true
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/products/search/{keyword}",
+      "DownstreamPathTemplate": "/api/products/search/{keyword}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/products/category/{category}",
+      "DownstreamPathTemplate": "/api/products/category/{category}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/products/{productID}",
+      "DownstreamPathTemplate": "/api/products/{productID}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "products",
+          "Port": 8080
+        }
+      ],
+      "UpstreamHttpMethod": [ "Delete", "Options" ]
+    },
+
+    {
+      "UpstreamPathTemplate": "/register",
+      "DownstreamPathTemplate": "/api/Auth/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "users",
+          "Port": 9090
+        }
+      ],
+      "UpstreamHttpMethod": [ "Post", "Options" ]
+    },
+    {
+      "UpstreamPathTemplate": "/login",
+      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "users",
+          "Port": 9090
+        }
+      ],
+      "UpstreamHttpMethod": [ "Post", "Options" ]
+    },
+    {
+      "UpstreamPathTemplate": "/users/{id}",
+      "DownstreamPathTemplate": "/api/Users/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "users",
+          "Port": 9090
+        }
+      ],
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "UpstreamPathTemplate": "/users/validate",
+      "DownstreamPathTemplate": "/api/Users/validate",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "users",
+          "Port": 9090
+        }
+      ],
+      "UpstreamHttpMethod": [ "Post", "Options" ],
+      "QoSOptions": {
+        "MinimumThroughput": 3,
+        "BreakDuration": 5000
+      },
+      "RetryOptions": {
+        "RetryCount": 3,
+        "RetryOnServerError": true
+      }
+    }
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:4412",
+    "Timeout": 60,
+    "RateLimitOptions": {
+      "ClientIdHeader": "x-req-from",
+      "EnableRateLimiting": true,
+      "Period": "1m",
+      "Limit": 60,
+      "QuotaExceededMessage": "Too many requests"
+    }
+  }
+}
